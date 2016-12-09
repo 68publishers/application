@@ -1,0 +1,20 @@
+language: php
+
+php:
+  - 7.0
+  - 7.1
+
+before_script:
+  - travis_retry composer update
+
+script:
+  # check coding standard for our code
+  - vendor/bin/phpcs -p --standard=psr2 src tests
+  - vendor/bin/phpunit --coverage-clover=coverage.clover
+
+after_script:
+  # get scrutinizer for coverage upload
+  - |
+    if [[ $TRAVIS_PHP_VERSION != '7.0' ]]; then
+      php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
+    fi
