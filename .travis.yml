@@ -10,7 +10,7 @@ before_script:
 
 script:
   # check coding standard for our code
-  - vendor/bin/phpcs -p --standard=psr2 src tests
+  #- vendor/bin/phpcs -p --standard=psr2 src tests
   - vendor/bin/phpunit --coverage-clover=coverage.clover
   - phpunit --coverage-text --coverage-clover=coverage.clover
 
