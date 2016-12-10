@@ -23,7 +23,7 @@ composer require 68publishers/application
 ## Rules for contributing
 
 - **1 PR per feature**
-- PR with tests are more likely to be merged 
+- PR with tests are more likely to be merged
 - **tests and coding standard must pass**
 
 ```bash
