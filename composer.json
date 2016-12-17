@@ -16,13 +16,11 @@
 		"squizlabs/php_codesniffer": "~2.7"
 	},
 	"autoload": {
-		"psr-4": {
-			"68publishers\\application\\": "src"
-		}
+		"classmap": ["src/"],
+		"files": []
 	},
 	"autoload-dev": {
-		"psr-4": {
-			"68publishers\\application\\": "tests"
-		}
+		"classmap": ["tests/"],
+		"files": []
 	}
 }
