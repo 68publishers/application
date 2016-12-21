@@ -5,6 +5,9 @@ namespace SixtyEightPublishers\Application\DI;
 use Nette\DI\CompilerExtension;
 use SixtyEightPublishers\Application\ConfigurationException;
 use SixtyEightPublishers\Application\Environment;
+use SixtyEightPublishers\Application\ProfileContainer;
+use SixtyEightPublishers\Application\IEnvironmentDetector;
+use SixtyEightPublishers\Application\Detector\NetteRequestDetector;
 
 
 class EnvironmentExtension extends CompilerExtension
@@ -19,13 +22,22 @@ class EnvironmentExtension extends CompilerExtension
 		'profile' => [],
 	];
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function loadConfiguration()
 	{
 		$builder = $this->getContainerBuilder();
 		$config = $this->getConfig($this->defaults);
 
-		$environment = $builder->addDefinition($this->prefix('environment'))
+		$builder->addDefinition($this->prefix('environment'))
 			->setClass(Environment::class);
+
+		$builder->addDefinition($this->prefix('detector'))
+			->setClass(NetteRequestDetector::class);
+
+		$profileContainer = $builder->addDefinition($this->prefix('profileContainer'))
+			->setClass(ProfileContainer::class);
 
 		if (empty($config['profile']))
 			throw new ConfigurationException("You must define some profile combination in your configuration.");
@@ -36,7 +48,7 @@ class EnvironmentExtension extends CompilerExtension
 			if (!empty(array_diff($requiredProfileParams, array_keys($profile))))
 				throw new ConfigurationException("Problem with \"{$profileName}\" profile configuration. There are missing some of the required parameters (country, language, currency).");
 
-			$environment->addSetup('addProfile', [
+			$profileContainer->addSetup('addProfile', [
 				$profileName,
 				(array) $profile['country'],
 				(array) $profile['language'],
@@ -46,5 +58,18 @@ class EnvironmentExtension extends CompilerExtension
 		}
 	}
 
+	/**
+	 * {@inheritdoc}
+	 */
+	public function beforeCompile()
+	{
+		$builder = $this->getContainerBuilder();
+		$detectors = $builder->findByType(IEnvironmentDetector::class);
+
+		if (count($detectors) > 1)
+			foreach ($detectors as $name => $definition)
+				if ($definition->getClass() === NetteRequestDetector::class)
+					$builder->removeDefinition($name);
+	}
 
 }

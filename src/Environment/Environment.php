@@ -5,58 +5,25 @@ namespace SixtyEightPublishers\Application;
 
 class Environment
 {
-	const DEFAULT_PROFILE_NAME = 'default';
-
 	/** @var null|Profile */
-	private $defaultProfile;
-
-	/** @var Profile[] */
-	private $profiles = [];
+	private $profile;
 
 	/**
-	 * @param string        $name
-	 * @param array         $countries
-	 * @param array         $languages
-	 * @param array         $currencies
-	 * @param array         $domains
-	 *
-	 * @return void
+	 * @param \SixtyEightPublishers\Application\ProfileContainer            $profileContainer
+	 * @param \SixtyEightPublishers\Application\IEnvironmentDetector        $detector
 	 */
-	public function addProfile($name, array $countries, array $languages, array $currencies, array $domains)
+	public function __construct(ProfileContainer $profileContainer, IEnvironmentDetector $detector)
 	{
-		$profile = new Profile($countries, $languages, $currencies, $domains);
-		if ($name === self::DEFAULT_PROFILE_NAME || !$this->defaultProfile)
-			$this->defaultProfile = $profile;
-
-		$this->profiles[$name] = $profile;
+		$profile = $detector->detect($profileContainer);
+		$this->profile = $profile instanceof Profile ? $profile : $profileContainer->getDefaultProfile();
 	}
 
 	/**
-	 * @return null|\SixtyEightPublishers\Application\Profile
-	 */
-	public function getDefaultProfile()
-	{
-		return $this->defaultProfile;
-	}
-
-	/**
-	 * @return \SixtyEightPublishers\Application\Profile[]
-	 */
-	public function getProfiles()
-	{
-		return $this->profiles;
-	}
-
-	/**
-	 * @param string $code
-	 *
 	 * @return \SixtyEightPublishers\Application\Profile
 	 */
-	public function getProfile($code)
+	public function getProfile()
 	{
-		if (!array_key_exists($code, $this->profiles))
-			throw new NonExistentProfileException("Profile with name \"{$code}\" doesn't exists.");
-
-		return $this->profiles[$code];
+		return $this->profile;
 	}
+
 }

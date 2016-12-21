@@ -3,6 +3,9 @@
 namespace SixtyEightPublishers\Application;
 
 
+/**
+ * @internal
+ */
 class Profile
 {
 	/** @var array  */
