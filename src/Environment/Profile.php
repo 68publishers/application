@@ -8,6 +8,9 @@ namespace SixtyEightPublishers\Application;
  */
 class Profile
 {
+	/** @var string  */
+	private $name;
+
 	/** @var array  */
 	private $countries;
 
@@ -24,13 +27,15 @@ class Profile
 	private $enabled = TRUE;
 
 	/**
+	 * @param string        $name
 	 * @param array         $countries
 	 * @param array         $languages
 	 * @param array         $currencies
 	 * @param array         $domains
 	 */
-	public function __construct(array $countries, array $languages, array $currencies, array $domains)
+	public function __construct($name, array $countries, array $languages, array $currencies, array $domains)
 	{
+		$this->name = $name;
 		$this->countries = $countries;
 		$this->languages = $languages;
 		$this->currencies = $currencies;
@@ -47,6 +52,13 @@ class Profile
 		$this->enabled = $enabled;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
 
 	/**
 	 * @return array
