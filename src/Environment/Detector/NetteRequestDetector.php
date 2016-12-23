@@ -54,6 +54,7 @@ class NetteRequestDetector implements IEnvironmentDetector
 
 			if (strpos($url, $e) === false)
 				return false;
+
 			$url = str_replace($e, '@', $url);
 		}
 

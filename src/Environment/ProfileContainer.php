@@ -27,7 +27,7 @@ class ProfileContainer implements \IteratorAggregate
 	 */
 	public function addProfile($name, array $countries, array $languages, array $currencies, array $domains)
 	{
-		$profile = new Profile($countries, $languages, $currencies, $domains);
+		$profile = new Profile($name, $countries, $languages, $currencies, $domains);
 		if ($name === self::DEFAULT_PROFILE_NAME || !$this->defaultProfile)
 			$this->defaultProfile = $profile;
 
