@@ -3,11 +3,13 @@
 namespace SixtyEightPublishers\Application\DI;
 
 use Nette\DI\CompilerExtension;
+use Nette\PhpGenerator\ClassType;
 use SixtyEightPublishers\Application\ConfigurationException;
 use SixtyEightPublishers\Application\Environment;
 use SixtyEightPublishers\Application\ProfileContainer;
 use SixtyEightPublishers\Application\IEnvironmentDetector;
 use SixtyEightPublishers\Application\Detector\NetteRequestDetector;
+use SixtyEightPublishers\Application\Diagnostics\Panel;
 
 
 class EnvironmentExtension extends CompilerExtension
@@ -56,6 +58,12 @@ class EnvironmentExtension extends CompilerExtension
 				array_key_exists('domain', $profile) ? (array) $profile['domain'] : []
 			]);
 		}
+
+		if ($this->useDebugger())
+			$builder->addDefinition($this->prefix('panel'))
+				->setClass(Panel::class)
+				->setInject(FALSE)
+				->setAutowired(FALSE);
 	}
 
 	/**
@@ -70,6 +78,34 @@ class EnvironmentExtension extends CompilerExtension
 			foreach ($detectors as $name => $definition)
 				if ($definition->getClass() === NetteRequestDetector::class)
 					$builder->removeDefinition($name);
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function afterCompile(ClassType $class)
+	{
+		$initialize = $class->methods['initialize'];
+
+		if ($this->useDebugger())
+		{
+			$bar = $this->getContainerBuilder()->getByType('Tracy\Bar');
+			$initialize->addBody('$this->getService(?)->addPanel($this->getService(?));', [
+				$bar,
+				$this->prefix('panel'),
+			]);
+		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function useDebugger()
+	{
+		$config = $this->getConfig($this->defaults);
+		$bar = $this->getContainerBuilder()->getByType('Tracy\Bar');
+
+		return ($config['debugger'] && $bar && interface_exists('Tracy\IBarPanel'));
 	}
 
 }
