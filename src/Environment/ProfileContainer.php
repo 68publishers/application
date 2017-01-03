@@ -7,7 +7,6 @@ namespace SixtyEightPublishers\Application;
  */
 class ProfileContainer implements \IteratorAggregate
 {
-
 	const DEFAULT_PROFILE_NAME = 'default';
 
 	/** @var null|Profile */
@@ -28,8 +27,9 @@ class ProfileContainer implements \IteratorAggregate
 	public function addProfile($name, array $countries, array $languages, array $currencies, array $domains)
 	{
 		$profile = new Profile($name, $countries, $languages, $currencies, $domains);
-		if ($name === self::DEFAULT_PROFILE_NAME || !$this->defaultProfile)
+		if ($name === self::DEFAULT_PROFILE_NAME || !$this->defaultProfile) {
 			$this->defaultProfile = $profile;
+		}
 
 		$this->profiles[$name] = $profile;
 	}
@@ -57,8 +57,9 @@ class ProfileContainer implements \IteratorAggregate
 	 */
 	public function getProfile($code)
 	{
-		if (!array_key_exists($code, $this->profiles))
+		if (!array_key_exists($code, $this->profiles)) {
 			throw new NonExistentProfileException("Profile with name \"{$code}\" doesn't exists.");
+		}
 
 		return $this->profiles[$code];
 	}

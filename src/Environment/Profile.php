@@ -2,7 +2,6 @@
 
 namespace SixtyEightPublishers\Application;
 
-
 /**
  * @internal
  */
@@ -99,5 +98,4 @@ class Profile
 	{
 		return $this->enabled;
 	}
-
 }

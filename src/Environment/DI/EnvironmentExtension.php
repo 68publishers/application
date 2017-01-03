@@ -11,7 +11,6 @@ use SixtyEightPublishers\Application\IEnvironmentDetector;
 use SixtyEightPublishers\Application\Detector\NetteRequestDetector;
 use SixtyEightPublishers\Application\Diagnostics\Panel;
 
-
 class EnvironmentExtension extends CompilerExtension
 {
 	/**
@@ -41,14 +40,15 @@ class EnvironmentExtension extends CompilerExtension
 		$profileContainer = $builder->addDefinition($this->prefix('profileContainer'))
 			->setClass(ProfileContainer::class);
 
-		if (empty($config['profile']))
+		if (empty($config['profile'])) {
 			throw new ConfigurationException("You must define some profile combination in your configuration.");
+		}
 
 		$requiredProfileParams = ['country', 'language', 'currency'];
-		foreach ($config['profile'] as $profileName => $profile)
-		{
-			if (!empty(array_diff($requiredProfileParams, array_keys($profile))))
+		foreach ($config['profile'] as $profileName => $profile) {
+			if (!empty(array_diff($requiredProfileParams, array_keys($profile)))) {
 				throw new ConfigurationException("Problem with \"{$profileName}\" profile configuration. There are missing some of the required parameters (country, language, currency).");
+			}
 
 			$profileContainer->addSetup('addProfile', [
 				$profileName,
@@ -59,11 +59,12 @@ class EnvironmentExtension extends CompilerExtension
 			]);
 		}
 
-		if ($this->useDebugger())
+		if ($this->useDebugger()) {
 			$builder->addDefinition($this->prefix('panel'))
 				->setClass(Panel::class)
 				->setInject(FALSE)
 				->setAutowired(FALSE);
+		}
 	}
 
 	/**
@@ -74,10 +75,13 @@ class EnvironmentExtension extends CompilerExtension
 		$builder = $this->getContainerBuilder();
 		$detectors = $builder->findByType(IEnvironmentDetector::class);
 
-		if (count($detectors) > 1)
-			foreach ($detectors as $name => $definition)
-				if ($definition->getClass() === NetteRequestDetector::class)
+		if (count($detectors) > 1) {
+			foreach ($detectors as $name => $definition) {
+				if ($definition->getClass() === NetteRequestDetector::class) {
 					$builder->removeDefinition($name);
+				}
+			}
+		}
 	}
 
 	/**
@@ -87,8 +91,7 @@ class EnvironmentExtension extends CompilerExtension
 	{
 		$initialize = $class->methods['initialize'];
 
-		if ($this->useDebugger())
-		{
+		if ($this->useDebugger()) {
 			$bar = $this->getContainerBuilder()->getByType('Tracy\Bar');
 			$initialize->addBody('$this->getService(?)->addPanel($this->getService(?));', [
 				$bar,
@@ -107,5 +110,4 @@ class EnvironmentExtension extends CompilerExtension
 
 		return ($config['debugger'] && $bar && interface_exists('Tracy\IBarPanel'));
 	}
-
 }
