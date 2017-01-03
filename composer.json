@@ -13,7 +13,8 @@
 	},
 	"require-dev": {
 		"phpunit/phpunit" : "~5.5",
-		"squizlabs/php_codesniffer": "~2.7"
+		"squizlabs/php_codesniffer": "~2.7",
+		"friendsofphp/php-cs-fixer": "^2.0"
 	},
 	"autoload": {
 		"classmap": ["src/"],

@@ -1,0 +1,16 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__)
+;
+
+return PhpCsFixer\Config::create()
+	->setUsingCache(FALSE)
+    ->setIndent("\t")
+    ->setRules([
+    	'@PSR2' => TRUE,
+    	'array_syntax' => ['syntax' => 'short'],
+    	'lowercase_constants' => FALSE,
+    ])
+    ->setFinder($finder)
+;
