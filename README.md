@@ -27,6 +27,7 @@ composer require 68publishers/application
 - **tests and coding standard must pass**
 
 ```bash
+vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run
 vendor/bin/phpcs -p --standard=PSR2 src tests
 vendor/bin/phpunit
 ```

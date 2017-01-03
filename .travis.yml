@@ -11,6 +11,7 @@ before_script:
 script:
   # check coding standard for our code
   #- vendor/bin/phpcs -p --standard=psr2 src tests
+  - vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run
   - vendor/bin/phpunit --coverage-clover=coverage.clover
   - phpunit --coverage-text --coverage-clover=coverage.clover
 
