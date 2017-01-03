@@ -11,5 +11,5 @@ interface IEnvironmentDetector
 	 *
 	 * @return mixed|void|Profile
 	 */
-	function detect(ProfileContainer $profileContainer);
+	public function detect(ProfileContainer $profileContainer);
 }
