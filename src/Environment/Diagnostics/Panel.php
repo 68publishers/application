@@ -8,7 +8,6 @@ use SixtyEightPublishers\Application\Profile;
 use SixtyEightPublishers\Application\ProfileContainer;
 use Tracy\IBarPanel;
 
-
 class Panel implements IBarPanel
 {
 	/** @var \SixtyEightPublishers\Application\ProfileContainer  */
@@ -57,8 +56,7 @@ class Panel implements IBarPanel
 		$table->addHtml($tbody = Html::el('tbody'));
 
 		/** @var Profile $profile */
-		foreach ($this->profiles as $profile)
-		{
+		foreach ($this->profiles as $profile) {
 			$tbody->addHtml($tr = Html::el('tr')
 				->addHtml(Html::el('td')->setText($profile->getName()))
 				->addHtml(Html::el('td')->setHtml(implode('<br>', $profile->getCountries())))
@@ -67,8 +65,9 @@ class Panel implements IBarPanel
 				->addHtml(Html::el('td')->setHtml(implode('<br>', $profile->getDomains())))
 			);
 
-			if ($profile === $this->environment->getProfile())
+			if ($profile === $this->environment->getProfile()) {
 				$tr->class[] = 'yes';
+			}
 		}
 
 		$panel[] = $table;
@@ -101,5 +100,4 @@ class Panel implements IBarPanel
 			}
 		</style>";
 	}
-
 }

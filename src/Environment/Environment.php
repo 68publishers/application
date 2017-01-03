@@ -2,7 +2,6 @@
 
 namespace SixtyEightPublishers\Application;
 
-
 class Environment
 {
 	/** @var null|Profile */
@@ -25,5 +24,4 @@ class Environment
 	{
 		return $this->profile;
 	}
-
 }

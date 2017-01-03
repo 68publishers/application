@@ -2,7 +2,6 @@
 
 namespace SixtyEightPublishers\Application;
 
-
 interface Exception
 {
 }
