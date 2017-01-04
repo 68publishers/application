@@ -4,16 +4,29 @@ php:
   - 7.0
   - 7.1
 
+env:
+  - TESTER_PHP_BIN="php-cgi"
+
+before_install:
+  - composer self-update
+
+install:
+  - composer install --no-interaction --prefer-source
+
 before_script:
   - travis_retry composer update
   - travis_retry composer create-project nette/code-checker temp/code-checker ~2.5 --no-interaction
 
 script:
   # check coding standard for our code
-  #- vendor/bin/phpcs -p --standard=psr2 src tests
   - vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run
+  - vendor/bin/tester -p $TESTER_PHP_BIN -s ./tests # -c ./tests/php.ini
   - vendor/bin/phpunit --coverage-clover=coverage.clover
   - phpunit --coverage-text --coverage-clover=coverage.clover
+
+after_failure:
+  # print content of output files *.actual
+  - for i in $(find ./tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
 
 after_script:
   # get scrutinizer for coverage upload
