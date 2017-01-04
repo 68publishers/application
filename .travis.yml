@@ -21,8 +21,6 @@ script:
   # check coding standard for our code
   - vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run
   - vendor/bin/tester -p $TESTER_PHP_BIN -s ./tests # -c ./tests/php.ini
-  - vendor/bin/phpunit --coverage-clover=coverage.clover
-  - phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_failure:
   # print content of output files *.actual
