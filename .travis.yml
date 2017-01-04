@@ -6,6 +6,7 @@ php:
 
 before_script:
   - travis_retry composer update
+  - travis_retry composer create-project nette/code-checker temp/code-checker ~2.5 --no-interaction
 
 script:
   # check coding standard for our code
@@ -22,7 +23,6 @@ after_script:
     fi
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-  - travis_retry composer create-project nette/code-checker temp/code-checker ~2.5 --no-interaction
 
 cache:
     directories:
