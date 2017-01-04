@@ -1,4 +1,4 @@
-# application
+# Application
 
 [![Build Status][ico-travis]][link-travis]
 [![Quality Score][ico-code-quality]][link-code-quality]
@@ -27,9 +27,8 @@ composer require 68publishers/application
 - **tests and coding standard must pass**
 
 ```bash
-vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run
-vendor/bin/phpcs -p --standard=PSR2 src tests
-vendor/bin/phpunit
+vendor/bin/tester ./tests -s
+vendor/bin/php-cs-fixer fix --config=.php_cs.dist
 ```
 
 **Happy coding**!
