@@ -47,6 +47,7 @@ class Panel implements IBarPanel
 
 		$table = Html::el('table');
 		$table->addHtml(Html::el('thead')->addHtml(Html::el('tr')
+			->addHtml(Html::el('th'))
 			->addHtml(Html::el('th')->setText('name'))
 			->addHtml(Html::el('th')->setText('country'))
 			->addHtml(Html::el('th')->setText('language'))
@@ -58,6 +59,7 @@ class Panel implements IBarPanel
 		/** @var Profile $profile */
 		foreach ($this->profiles as $profile) {
 			$tbody->addHtml($tr = Html::el('tr')
+				->addHtml($firstCell = Html::el('td'))
 				->addHtml(Html::el('td')->setText($profile->getName()))
 				->addHtml(Html::el('td')->setHtml(implode('<br>', $profile->getCountries())))
 				->addHtml(Html::el('td')->setHtml(implode('<br>', $profile->getLanguages())))
@@ -67,6 +69,11 @@ class Panel implements IBarPanel
 
 			if ($profile === $this->environment->getProfile()) {
 				$tr->class[] = 'yes';
+				$firstCell->setText('✓');
+			}
+			elseif (!$profile->isEnabled()) {
+				$tr->class[] = 'disabled';
+				$firstCell->setText('✗');
 			}
 		}
 
@@ -97,6 +104,10 @@ class Panel implements IBarPanel
 			}
 			#nette-debug .sixtyEightPublishers-EnvironmentPanel tr.yes td, #tracy-debug .sixtyEightPublishers-EnvironmentPanel tr.yes td {
 				background: #BDE678;
+			}
+			#nette-debug .sixtyEightPublishers-EnvironmentPanel tr.disabled td, #tracy-debug .sixtyEightPublishers-EnvironmentPanel tr.disabled td {
+				background: #E7CFCC;
+				color: #4C4C4C;
 			}
 		</style>";
 	}
