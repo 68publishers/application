@@ -55,7 +55,8 @@ class EnvironmentExtension extends CompilerExtension
 				(array) $profile['country'],
 				(array) $profile['language'],
 				(array) $profile['currency'],
-				array_key_exists('domain', $profile) ? (array) $profile['domain'] : []
+				array_key_exists('domain', $profile) ? (array) $profile['domain'] : [],
+				!(array_key_exists('disable', $profile) && $profile['disable'] === TRUE),
 			]);
 		}
 

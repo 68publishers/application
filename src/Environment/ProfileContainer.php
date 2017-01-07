@@ -21,12 +21,18 @@ class ProfileContainer implements \IteratorAggregate
 	 * @param array         $languages
 	 * @param array         $currencies
 	 * @param array         $domains
+	 * @param bool          $isEnabled
 	 *
 	 * @return void
 	 */
-	public function addProfile($name, array $countries, array $languages, array $currencies, array $domains)
+	public function addProfile($name, array $countries, array $languages, array $currencies, array $domains, $isEnabled = true)
 	{
 		$profile = new Profile($name, $countries, $languages, $currencies, $domains);
+
+		if (!$isEnabled) {
+			$profile->setEnabled(FALSE);
+		}
+
 		if ($name === self::DEFAULT_PROFILE_NAME || !$this->defaultProfile) {
 			$this->defaultProfile = $profile;
 		}
