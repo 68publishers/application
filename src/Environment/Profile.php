@@ -5,7 +5,7 @@ namespace SixtyEightPublishers\Application;
 /**
  * @internal
  */
-class Profile
+class Profile implements IProfile
 {
 	/** @var string  */
 	private $name;
@@ -52,9 +52,21 @@ class Profile
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function isEnabled()
+	{
+		return $this->enabled;
+	}
+
+
+	/***************** interface \SixtyEightPublishers\Application\IProfile *****************/
+
+
+	/**
 	 * @return string
 	 */
-	public function getName()
+	public function getName() : string
 	{
 		return $this->name;
 	}
@@ -62,7 +74,7 @@ class Profile
 	/**
 	 * @return array
 	 */
-	public function getCountries()
+	public function getCountries() : array
 	{
 		return $this->countries;
 	}
@@ -70,7 +82,7 @@ class Profile
 	/**
 	 * @return array
 	 */
-	public function getLanguages()
+	public function getLanguages() : array
 	{
 		return $this->languages;
 	}
@@ -78,7 +90,7 @@ class Profile
 	/**
 	 * @return array
 	 */
-	public function getCurrencies()
+	public function getCurrencies() : array
 	{
 		return $this->currencies;
 	}
@@ -86,16 +98,8 @@ class Profile
 	/**
 	 * @return array
 	 */
-	public function getDomains()
+	public function getDomains() : array
 	{
 		return $this->domains;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isEnabled()
-	{
-		return $this->enabled;
 	}
 }
