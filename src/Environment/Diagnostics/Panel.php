@@ -70,8 +70,7 @@ class Panel implements IBarPanel
 			if ($profile === $this->environment->getProfile()) {
 				$tr->class[] = 'yes';
 				$firstCell->setText('✓');
-			}
-			elseif (!$profile->isEnabled()) {
+			} elseif (!$profile->isEnabled()) {
 				$tr->class[] = 'disabled';
 				$firstCell->setText('✗');
 			}
