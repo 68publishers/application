@@ -10,6 +10,8 @@ use SixtyEightPublishers\Application\ProfileContainer;
 use SixtyEightPublishers\Application\IEnvironmentDetector;
 use SixtyEightPublishers\Application\Detector\NetteRequestDetector;
 use SixtyEightPublishers\Application\Diagnostics\Panel;
+use SixtyEightPublishers\Application\IProfileStorage;
+use SixtyEightPublishers\Application\Storage\SessionProfileStorage;
 
 class EnvironmentExtension extends CompilerExtension
 {
@@ -36,6 +38,9 @@ class EnvironmentExtension extends CompilerExtension
 
 		$builder->addDefinition($this->prefix('detector'))
 			->setClass(NetteRequestDetector::class);
+
+		$builder->addDefinition($this->prefix('profileStorage'))
+			->setClass(SessionProfileStorage::class);
 
 		$profileContainer = $builder->addDefinition($this->prefix('profileContainer'))
 			->setClass(ProfileContainer::class);
@@ -74,10 +79,19 @@ class EnvironmentExtension extends CompilerExtension
 	{
 		$builder = $this->getContainerBuilder();
 		$detectors = $builder->findByType(IEnvironmentDetector::class);
+		$storage = $builder->findByType(IProfileStorage::class);
 
 		if (count($detectors) > 1) {
 			foreach ($detectors as $name => $definition) {
 				if ($definition->getClass() === NetteRequestDetector::class) {
+					$builder->removeDefinition($name);
+				}
+			}
+		}
+
+		if (count($storage) > 1) {
+			foreach ($storage as $name => $definition) {
+				if ($definition->getClass() === SessionProfileStorage::class) {
 					$builder->removeDefinition($name);
 				}
 			}

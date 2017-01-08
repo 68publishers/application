@@ -65,7 +65,7 @@ class Panel implements IBarPanel
 				->addHtml(Html::el('td')->setHtml(implode('<br>', $profile->getDomains())))
 			);
 
-			if ($profile === $this->environment->getProfile()) {
+			if ($profile->getName() === $this->environment->getProfile()->getName()) {
 				$tr->class[] = 'yes';
 			}
 		}

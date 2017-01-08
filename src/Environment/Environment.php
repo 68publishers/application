@@ -4,24 +4,26 @@ namespace SixtyEightPublishers\Application;
 
 class Environment
 {
-	/** @var null|Profile */
-	private $profile;
+	/** @var \SixtyEightPublishers\Application\IProfileStorage  */
+	private $profileStorage;
 
 	/**
 	 * @param \SixtyEightPublishers\Application\ProfileContainer            $profileContainer
 	 * @param \SixtyEightPublishers\Application\IEnvironmentDetector        $detector
+	 * @param \SixtyEightPublishers\Application\IProfileStorage             $profileStorage
 	 */
-	public function __construct(ProfileContainer $profileContainer, IEnvironmentDetector $detector)
+	public function __construct(ProfileContainer $profileContainer, IEnvironmentDetector $detector, IProfileStorage $profileStorage)
 	{
 		$profile = $detector->detect($profileContainer);
-		$this->profile = $profile instanceof Profile ? $profile : $profileContainer->getDefaultProfile();
+		$this->profileStorage = $profileStorage;
+		$this->profileStorage->setProfile($profile instanceof Profile ? $profile : $profileContainer->getDefaultProfile());
 	}
 
 	/**
-	 * @return \SixtyEightPublishers\Application\Profile
+	 * @return \SixtyEightPublishers\Application\ActiveProfile
 	 */
 	public function getProfile()
 	{
-		return $this->profile;
+		return $this->profileStorage->getProfile();
 	}
 }
