@@ -30,9 +30,11 @@ class NetteRequestDetector implements IEnvironmentDetector
 
 		/** @var Profile $profile */
 		foreach ($profileContainer as $profile) {
-			foreach ($profile->getDomains() as $domain) {
-				if ((Strings::contains($domain, '*') && $this->match($domain, $url)) || ($domain === $url)) {
-					return $profile;
+			if ($profile->isEnabled()) {
+				foreach ($profile->getDomains() as $domain) {
+					if ((Strings::contains($domain, '*') && $this->match($domain, $url)) || ($domain === $url)) {
+						return $profile;
+					}
 				}
 			}
 		}
