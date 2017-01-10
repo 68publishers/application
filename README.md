@@ -6,7 +6,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Latest Version on Packagist][ico-version]][link-packagist]
 
-This is where your description will be. Limit it to 2 paragraphs tops.
+This package helps you to deal with regions with different languages, currencies and countries. It could be helpful even if you have single region project.
 
 ## Installation
 
@@ -29,25 +29,31 @@ extensions:
 environment:
 	profile:
 		europe:
-			language: [cs_CZ, sk_SK, en_GB, de_DE, pl_PL]
-			currency: [CZK, EUR, PLZ, GBP]
-			country: [CZ, SK, GB, DE, PL]
+			language: [sk_SK, en_GB, de_DE, pl_PL]
+			currency: [EUR, PLZ, GBP]
+			country: [SK, GB, DE, PL]
 		north_america:
 			language: en_US
 			currency: USD
 			country: US
 			domain: [www.example.com, example.com]
 			# disable: yes
+		default: # If the default profile doesn't exists, the first profile is taken as default
+			language: cs_CZ
+			currency: CZK
+			country: CZ
 ```
 
 ### Bar panel
 
-Enables and disables Tracy debugger bar panel
+Enables and disables Tracy debugger bar panel for better debugging
 
 ```yml
 environment:
 	debugger: yes
 ```
+
+![](https://68publishers.github.io/repo/environment/tracy-panel.png)
 
 ## Rules for contributing
 
