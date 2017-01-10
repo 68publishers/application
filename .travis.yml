@@ -28,12 +28,8 @@ after_failure:
 
 after_script:
   # get scrutinizer for coverage upload
-  - |
-    if [[ $TRAVIS_PHP_VERSION != '7.0' ]]; then
-      php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
-    fi
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
 
 cache:
     directories:
