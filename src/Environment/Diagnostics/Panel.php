@@ -105,8 +105,8 @@ class Panel implements IBarPanel
 				background: #BDE678;
 			}
 			#nette-debug .sixtyEightPublishers-EnvironmentPanel tr.disabled td, #tracy-debug .sixtyEightPublishers-EnvironmentPanel tr.disabled td {
-				background: #E7CFCC;
-				color: #4C4C4C;
+				background: #DDD;
+				color: #888;
 			}
 		</style>";
 	}
