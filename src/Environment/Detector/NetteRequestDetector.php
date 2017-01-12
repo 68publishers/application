@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SixtyEightPublishers\Application\Detector;
 
 use Nette\Http\IRequest;
@@ -39,7 +41,7 @@ class NetteRequestDetector implements IEnvironmentDetector
 			}
 		}
 
-		return null;
+		return NULL;
 	}
 
 	/**
@@ -56,8 +58,8 @@ class NetteRequestDetector implements IEnvironmentDetector
 				continue;
 			}
 
-			if (strpos($url, $e) === false) {
-				return false;
+			if (strpos($url, $e) === FALSE) {
+				return FALSE;
 			}
 
 			$url = str_replace($e, '@', $url);

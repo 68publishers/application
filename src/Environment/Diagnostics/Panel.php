@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SixtyEightPublishers\Application\Diagnostics;
 
 use Nette\Utils\Html;
