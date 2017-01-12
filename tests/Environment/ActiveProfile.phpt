@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SixtyEightPublishers\Tests\Application;
 
 use Tester\Assert;
@@ -7,7 +9,6 @@ use Tester\TestCase;
 use SixtyEightPublishers\Application as SEApplication;
 
 require __DIR__ . '/../bootstrap.php';
-
 
 class ActiveProfile extends TestCase
 {

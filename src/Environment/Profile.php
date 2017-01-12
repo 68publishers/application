@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SixtyEightPublishers\Application;
 
 /**
@@ -46,7 +48,7 @@ class Profile implements IProfile
 	 *
 	 * @return void
 	 */
-	public function setEnabled($enabled = true)
+	public function setEnabled($enabled = TRUE)
 	{
 		$this->enabled = $enabled;
 	}
