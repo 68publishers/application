@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace SixtyEightPublishers\Application\Detector;
 
 use Nette\Http\IRequest;
@@ -39,7 +41,7 @@ class NetteRequestDetector implements IEnvironmentDetector
 			}
 		}
 
-		return null;
+		return NULL;
 	}
 
 	/**
