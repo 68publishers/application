@@ -21,6 +21,7 @@ script:
   # check coding standard for our code
   - vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run
   - vendor/bin/tester -p $TESTER_PHP_BIN -s ./tests # -c ./tests/php.ini
+  - vendor/bin/tester ./tests --coverage coverage.xml
 
 after_failure:
   # print content of output files *.actual
