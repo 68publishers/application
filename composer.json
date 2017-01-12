@@ -1,6 +1,6 @@
 {
 	"name": "68publishers/application",
-	"description": "Base extensions and components",
+	"description": "Base extensions and components.",
 	"keywords": ["68publishers", "application"],
 	"license": "MIT",
 	"authors": [
@@ -9,7 +9,7 @@
 		}
 	],
 	"require": {
-		"php" : "~7.0",
+		"php": "~7.0",
 		"nette/di": "^2.4",
 		"nette/http": "^2.4",
 		"nette/utils": "^2.4"
