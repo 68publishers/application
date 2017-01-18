@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace SixtyEightPublishers\Application\Detector;
+namespace SixtyEightPublishers\Application\Environment\Detector;
 
 use Nette\Http\IRequest;
 use Nette\Utils\Strings;
-use SixtyEightPublishers\Application\IEnvironmentDetector;
-use SixtyEightPublishers\Application\Profile;
-use SixtyEightPublishers\Application\ProfileContainer;
+use SixtyEightPublishers\Application\Environment\IEnvironmentDetector;
+use SixtyEightPublishers\Application\Environment\Profile;
+use SixtyEightPublishers\Application\Environment\ProfileContainer;
 
 class NetteRequestDetector implements IEnvironmentDetector
 {

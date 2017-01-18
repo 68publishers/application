@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace SixtyEightPublishers\Application\Diagnostics;
+namespace SixtyEightPublishers\Application\Environment\Diagnostics;
 
 use Nette\Utils\Html;
-use SixtyEightPublishers\Application\Environment;
-use SixtyEightPublishers\Application\Profile;
-use SixtyEightPublishers\Application\ProfileContainer;
+use SixtyEightPublishers\Application\Environment\Environment;
+use SixtyEightPublishers\Application\Environment\Profile;
+use SixtyEightPublishers\Application\Environment\ProfileContainer;
 use Tracy\IBarPanel;
 
 class Panel implements IBarPanel
 {
-	/** @var \SixtyEightPublishers\Application\ProfileContainer  */
+	/** @var \SixtyEightPublishers\Application\Environment\ProfileContainer  */
 	private $profiles;
 
-	/** @var \SixtyEightPublishers\Application\Environment  */
+	/** @var \SixtyEightPublishers\Application\Environment\Environment  */
 	private $environment;
 
 	/**
-	 * @param \SixtyEightPublishers\Application\ProfileContainer    $profiles
-	 * @param \SixtyEightPublishers\Application\Environment         $environment
+	 * @param \SixtyEightPublishers\Application\Environment\ProfileContainer    $profiles
+	 * @param \SixtyEightPublishers\Application\Environment\Environment         $environment
 	 */
 	public function __construct(ProfileContainer $profiles, Environment $environment)
 	{

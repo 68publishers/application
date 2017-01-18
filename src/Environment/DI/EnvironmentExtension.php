@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace SixtyEightPublishers\Application\DI;
+namespace SixtyEightPublishers\Application\Environment\DI;
 
 use Nette\DI\CompilerExtension;
 use Nette\PhpGenerator\ClassType;
-use SixtyEightPublishers\Application\ConfigurationException;
-use SixtyEightPublishers\Application\Environment;
-use SixtyEightPublishers\Application\ProfileContainer;
-use SixtyEightPublishers\Application\IEnvironmentDetector;
-use SixtyEightPublishers\Application\Detector\NetteRequestDetector;
-use SixtyEightPublishers\Application\Diagnostics\Panel;
-use SixtyEightPublishers\Application\IProfileStorage;
-use SixtyEightPublishers\Application\Storage\SessionProfileStorage;
+use SixtyEightPublishers\Application\Environment\ConfigurationException;
+use SixtyEightPublishers\Application\Environment\Environment;
+use SixtyEightPublishers\Application\Environment\ProfileContainer;
+use SixtyEightPublishers\Application\Environment\IEnvironmentDetector;
+use SixtyEightPublishers\Application\Environment\Detector\NetteRequestDetector;
+use SixtyEightPublishers\Application\Environment\Diagnostics\Panel;
+use SixtyEightPublishers\Application\Environment\IProfileStorage;
+use SixtyEightPublishers\Application\Environment\Storage\SessionProfileStorage;
 
 class EnvironmentExtension extends CompilerExtension
 {

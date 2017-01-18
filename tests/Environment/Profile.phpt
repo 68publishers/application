@@ -6,7 +6,7 @@ namespace SixtyEightPublishers\Tests\Application;
 
 use Tester\Assert;
 use Tester\TestCase;
-use SixtyEightPublishers\Application as SEApplication;
+use SixtyEightPublishers\Application\Environment as SEEnvironment;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -17,7 +17,7 @@ class Profile extends TestCase
 {
 	public function testProfile()
 	{
-		$profile = new SEApplication\Profile('north_america', ['US'], ['en_US'], ['USD'], ['profile.local']);
+		$profile = new SEEnvironment\Profile('north_america', ['US'], ['en_US'], ['USD'], ['profile.local']);
 		$profile->setEnabled(TRUE);
 
 		Assert::same('north_america', $profile->getName());
