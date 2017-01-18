@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SixtyEightPublishers\Application\Components;
 
 use Nette\Application\UI\Control;
-use SixtyEightPublishers\Application\ConfigurationException;
 
 class TemplateFactory extends \Nette\Bridges\ApplicationLatte\TemplateFactory
 {
@@ -25,6 +24,7 @@ class TemplateFactory extends \Nette\Bridges\ApplicationLatte\TemplateFactory
 	/**
 	 * @param \Nette\Application\UI\Control|null $control
 	 *
+	 * @throws \SixtyEightPublishers\Application\Components\ConfigurationException
 	 * @return \SixtyEightPublishers\Application\Components\Template
 	 */
 	public function createTemplate(Control $control = NULL)

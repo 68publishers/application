@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace SixtyEightPublishers\Application;
+namespace SixtyEightPublishers\Application\Environment;
 
 class Environment
 {
-	/** @var \SixtyEightPublishers\Application\IProfileStorage  */
+	/** @var \SixtyEightPublishers\Application\Environment\IProfileStorage  */
 	private $profileStorage;
 
 	/**
-	 * @param \SixtyEightPublishers\Application\ProfileContainer            $profileContainer
-	 * @param \SixtyEightPublishers\Application\IEnvironmentDetector        $detector
-	 * @param \SixtyEightPublishers\Application\IProfileStorage             $profileStorage
+	 * @param \SixtyEightPublishers\Application\Environment\ProfileContainer            $profileContainer
+	 * @param \SixtyEightPublishers\Application\Environment\IEnvironmentDetector        $detector
+	 * @param \SixtyEightPublishers\Application\Environment\IProfileStorage             $profileStorage
 	 */
 	public function __construct(ProfileContainer $profileContainer, IEnvironmentDetector $detector, IProfileStorage $profileStorage)
 	{
@@ -22,7 +22,7 @@ class Environment
 	}
 
 	/**
-	 * @return \SixtyEightPublishers\Application\ActiveProfile
+	 * @return \SixtyEightPublishers\Application\Environment\ActiveProfile
 	 */
 	public function getProfile()
 	{

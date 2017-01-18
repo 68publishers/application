@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SixtyEightPublishers\Application;
+namespace SixtyEightPublishers\Application\Environment;
 
 use Nette\SmartObject;
 
@@ -15,10 +15,10 @@ class ActiveProfile implements IProfile
 {
 	use SmartObject;
 
-	/** @var \SixtyEightPublishers\Application\IProfile  */
+	/** @var \SixtyEightPublishers\Application\Environment\IProfile  */
 	private $profile;
 
-	/** @var \SixtyEightPublishers\Application\IProfileStorage  */
+	/** @var \SixtyEightPublishers\Application\Environment\IProfileStorage  */
 	private $profileStorage;
 
 	/** @var null|string */
@@ -31,8 +31,8 @@ class ActiveProfile implements IProfile
 	private $currency;
 
 	/**
-	 * @param \SixtyEightPublishers\Application\IProfile            $profile
-	 * @param \SixtyEightPublishers\Application\IProfileStorage     $profileStorage
+	 * @param \SixtyEightPublishers\Application\Environment\IProfile            $profile
+	 * @param \SixtyEightPublishers\Application\Environment\IProfileStorage     $profileStorage
 	 */
 	public function __construct(IProfile $profile, IProfileStorage $profileStorage)
 	{
@@ -130,7 +130,7 @@ class ActiveProfile implements IProfile
 		return $this;
 	}
 
-	/***************** interface \SixtyEightPublishers\Application\IProfile *****************/
+	/***************** interface \SixtyEightPublishers\Application\Environment\IProfile *****************/
 
 	/**
 	 * {@inheritdoc}

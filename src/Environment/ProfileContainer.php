@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SixtyEightPublishers\Application;
+namespace SixtyEightPublishers\Application\Environment;
 
 /**
  * @internal
@@ -43,7 +43,7 @@ class ProfileContainer implements \IteratorAggregate
 	}
 
 	/**
-	 * @return null|\SixtyEightPublishers\Application\Profile
+	 * @return null|\SixtyEightPublishers\Application\Environment\Profile
 	 */
 	public function getDefaultProfile()
 	{
@@ -51,7 +51,7 @@ class ProfileContainer implements \IteratorAggregate
 	}
 
 	/**
-	 * @return \SixtyEightPublishers\Application\Profile[]
+	 * @return \SixtyEightPublishers\Application\Environment\Profile[]
 	 */
 	public function getProfiles()
 	{
@@ -61,7 +61,7 @@ class ProfileContainer implements \IteratorAggregate
 	/**
 	 * @param string $code
 	 *
-	 * @return \SixtyEightPublishers\Application\Profile
+	 * @return \SixtyEightPublishers\Application\Environment\Profile
 	 */
 	public function getProfile($code)
 	{

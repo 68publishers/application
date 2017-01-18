@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace SixtyEightPublishers\Tests\Application;
+namespace SixtyEightPublishers\Tests\Application\Environment;
 
 use Tester\Assert;
 use Tester\TestCase;
-use SixtyEightPublishers\Application as SEApplication;
+use SixtyEightPublishers\Application\Environment as SEEnvironment;
 
 require __DIR__ . '/../bootstrap.php';
 
 class ActiveProfile extends TestCase
 {
-	/** @var SEApplication\ActiveProfile */
+	/** @var SEEnvironment\ActiveProfile */
 	private $activeProfile;
 
 	public function setUp()
 	{
-		$profile = new SEApplication\Profile('czech', ['CZ', 'SK'], ['cs_CZ', 'sk_SK'], ['CZK', 'EUR'], ['profile.local']);
-		$this->activeProfile = new SEApplication\ActiveProfile($profile, new TestProfileStorage());
+		$profile = new SEEnvironment\Profile('czech', ['CZ', 'SK'], ['cs_CZ', 'sk_SK'], ['CZK', 'EUR'], ['profile.local']);
+		$this->activeProfile = new SEEnvironment\ActiveProfile($profile, new TestProfileStorage());
 	}
 
 	public function testBase()
@@ -50,7 +50,7 @@ class ActiveProfile extends TestCase
 	 * @param string $value
 	 *
 	 * @dataProvider getInvalidChangeData
-	 * @throws \SixtyEightPublishers\Application\ProfileConfigurationException
+	 * @throws \SixtyEightPublishers\Application\Environment\ProfileConfigurationException
 	 */
 	public function testInvalidChange($method, $value)
 	{
@@ -67,13 +67,13 @@ class ActiveProfile extends TestCase
 	}
 }
 
-class TestProfileStorage implements SEApplication\IProfileStorage
+class TestProfileStorage implements SEEnvironment\IProfileStorage
 {
-	public function setProfile(SEApplication\IProfile $profile)
+	public function setProfile(SEEnvironment\IProfile $profile)
 	{
 	}
 
-	public function getProfile() : SEApplication\ActiveProfile
+	public function getProfile() : SEEnvironment\ActiveProfile
 	{
 	}
 

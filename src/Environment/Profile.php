@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SixtyEightPublishers\Application;
+namespace SixtyEightPublishers\Application\Environment;
 
 /**
  * @internal
@@ -62,7 +62,7 @@ class Profile implements IProfile
 	}
 
 
-	/***************** interface \SixtyEightPublishers\Application\IProfile *****************/
+	/***************** interface \SixtyEightPublishers\Application\Environment\IProfile *****************/
 
 
 	/**

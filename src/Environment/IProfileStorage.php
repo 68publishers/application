@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace SixtyEightPublishers\Application;
+namespace SixtyEightPublishers\Application\Environment;
 
 interface IProfileStorage
 {
 	/**
-	 * @param \SixtyEightPublishers\Application\IProfile $profile
+	 * @param \SixtyEightPublishers\Application\Environment\IProfile $profile
 	 *
 	 * @return mixed|void
 	 */
 	public function setProfile(IProfile $profile);
 
 	/**
-	 * @return \SixtyEightPublishers\Application\ActiveProfile
+	 * @return \SixtyEightPublishers\Application\Environment\ActiveProfile
 	 */
 	public function getProfile() : ActiveProfile;
 

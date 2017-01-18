@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace SixtyEightPublishers\Application\Storage;
+namespace SixtyEightPublishers\Application\Environment\Storage;
 
 use Nette\Http\Session;
 use Nette\SmartObject;
-use SixtyEightPublishers\Application\ActiveProfile;
-use SixtyEightPublishers\Application\IProfile;
-use SixtyEightPublishers\Application\IProfileStorage;
-use SixtyEightPublishers\Application\ProfileConfigurationException;
+use SixtyEightPublishers\Application\Environment\ActiveProfile;
+use SixtyEightPublishers\Application\Environment\IProfile;
+use SixtyEightPublishers\Application\Environment\IProfileStorage;
+use SixtyEightPublishers\Application\Environment\ProfileConfigurationException;
 
 class SessionProfileStorage implements IProfileStorage
 {
@@ -38,7 +38,7 @@ class SessionProfileStorage implements IProfileStorage
 	}
 
 
-	/***************** interface \SixtyEightPublishers\Application\IProfileStorage *****************/
+	/************* interface \SixtyEightPublishers\Application\Environment\IProfileStorage *************/
 
 	/**
 	 * {@inheritdoc}
@@ -68,7 +68,7 @@ class SessionProfileStorage implements IProfileStorage
 	}
 
 	/**
-	 * @return \SixtyEightPublishers\Application\ActiveProfile
+	 * @return \SixtyEightPublishers\Application\Environment\ActiveProfile
 	 */
 	public function getProfile() : ActiveProfile
 	{
