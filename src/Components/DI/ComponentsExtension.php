@@ -48,7 +48,7 @@ class ComponentsExtension extends CompilerExtension
 		}
 
 		if ($config['enabled']) {
-			$templatesDir = Helpers::expand($this->defaults['templatesDir'], $builder->parameters);
+			$templatesDir = Helpers::expand($config['templatesDir'], $builder->parameters);
 			$builder->getDefinition($this->prefix('templateManager'))
 				->setArguments([
 					'map' => TemplateManager::createMap($templatesDir),

@@ -88,7 +88,10 @@ class TemplateManager
 		/** @var \SplFileInfo $file */
 		foreach (Finder::find('*.latte')->from($dir) as $file) {
 			$path = Strings::trim(str_replace($dir, '', $file->getPathname()), "\\/");
-			$map[] = str_replace('\\', '/', $path);
+
+			if (!Strings::contains($path, '@')) {
+				$map[] = str_replace('\\', '/', $path);
+			}
 		}
 
 		return $map;
