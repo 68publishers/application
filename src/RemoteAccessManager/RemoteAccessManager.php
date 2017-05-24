@@ -7,6 +7,7 @@ namespace SixtyEightPublishers\Application\RemoteAccessManager;
 use Nette\Http\IRequest;
 use Nette\SmartObject;
 use SixtyEightPublishers\Application\RemoteAccessManager\Handler\IAccessHandler;
+use Tracy\Debugger;
 
 /**
  * @method  RemoteAccessManager   onAccess()
@@ -36,6 +37,9 @@ class RemoteAccessManager implements IRemoteAccessManager
 	/** @var bool|true */
 	private $mode;
 
+	/** @var bool|false */
+	private $consoleMode;
+
 	/** @var \SixtyEightPublishers\Application\RemoteAccessManager\Handler\IAccessHandler */
 	private $handler;
 
@@ -51,14 +55,16 @@ class RemoteAccessManager implements IRemoteAccessManager
 	 * @param string|array            $whitelist
 	 * @param string                  $key
 	 * @param bool|TRUE               $mode
+	 * @param bool|FALSE              $consoleMode
 	 * @param IAccessHandler          $handler
 	 */
-	public function __construct(IRequest $request, $blacklist = [], $whitelist = [], $mode = self::ALLOWED_ALL, $key = self::COOKIE_SECRET, IAccessHandler $handler)
+	public function __construct(IRequest $request, $blacklist = [], $whitelist = [], $mode = self::ALLOWED_ALL, $key = self::COOKIE_SECRET, $consoleMode = FALSE, IAccessHandler $handler)
 	{
 		$this->request = $request;
 		$this->blacklist = $blacklist;
 		$this->whitelist = $whitelist;
 		$this->mode = $mode;
+		$this->consoleMode = $consoleMode;
 		$this->key = $key;
 		$this->handler = $handler;
 
@@ -78,6 +84,10 @@ class RemoteAccessManager implements IRemoteAccessManager
 	 */
 	private function isAllowed() : bool
 	{
+		if ($this->consoleMode) {
+			return TRUE;
+		}
+
 		$addr = $this->request->getRemoteAddress() ?: php_uname('n');
 		$secret = $this->request->getCookie($this->key);
 

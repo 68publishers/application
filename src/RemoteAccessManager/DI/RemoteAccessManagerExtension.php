@@ -45,6 +45,7 @@ class RemoteAccessManagerExtension extends CompilerExtension
 				'blacklist' => $config['blacklist'],
 				'key' => $config['secretKey'],
 				'mode' => $config['allowAll'],
+				'consoleMode' => $builder->parameters['consoleMode'],
 				'handler' => new $config['handler'],
 			])
 			->addTag('run', TRUE)
