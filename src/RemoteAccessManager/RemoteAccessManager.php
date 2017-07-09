@@ -104,7 +104,7 @@ class RemoteAccessManager implements IRemoteAccessManager
 				$whitelist[] = '127.0.0.1';
 				$whitelist[] = '::1';
 			}
-			$allow = in_array($addr, $whitelist, TRUE) || in_array("$secret@$addr", $whitelist, TRUE);
+			$allow = in_array($addr, $whitelist, TRUE) || in_array("$secret@$addr", $whitelist, TRUE) || in_array($secret, $whitelist, TRUE);
 		}
 
 		return $allow;
