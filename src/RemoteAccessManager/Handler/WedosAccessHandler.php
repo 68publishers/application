@@ -6,10 +6,6 @@ namespace SixtyEightPublishers\Application\RemoteAccessManager\Handler;
 
 class WedosAccessHandler extends DefaultAccessHandler implements IAccessHandler
 {
-	public function allow()
-	{
-	}
-
 	public function deny()
 	{
 		echo <<< WEDOS

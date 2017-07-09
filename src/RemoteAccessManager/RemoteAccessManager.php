@@ -43,12 +43,6 @@ class RemoteAccessManager implements IRemoteAccessManager
 	/** @var \SixtyEightPublishers\Application\RemoteAccessManager\Handler\IAccessHandler */
 	private $handler;
 
-	/** @var null|callable */
-	public $onAllow;
-
-	/** @var null|callable */
-	public $onDeny;
-
 	/**
 	 * @param \Nette\Http\IRequest    $request
 	 * @param string|array            $blacklist
@@ -67,16 +61,13 @@ class RemoteAccessManager implements IRemoteAccessManager
 		$this->consoleMode = $consoleMode;
 		$this->key = $key;
 		$this->handler = $handler;
-
-		$this->onAllow[] = [$this->handler, 'allow'];
-		$this->onDeny[] = [$this->handler, 'deny'];
 	}
 
 	public function process()
 	{
 		$this->isAllowed()
-			? $this->onAllow()
-			: $this->onDeny();
+			? $this->handler->allow()
+			: $this->handler->deny();
 	}
 
 	/**
