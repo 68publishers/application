@@ -7,9 +7,14 @@ namespace SixtyEightPublishers\Application\Environment;
 use Nette\SmartObject;
 
 /**
- * @property-read string    $country
- * @property-read string    $language
- * @property-read string    $currency
+ * @property-read NULL|string    $country
+ * @property-read NULL|string    $language
+ * @property-read NULL|string    $currency
+ * @property-read NULL|string    $defaultCountry
+ * @property-read NULL|string    $defaultLanguage
+ * @property-read NULL|string    $defaultCurrency
+ *
+ * @method void onChangeLanguage(string $language)
  */
 class ActiveProfile implements IProfile
 {
@@ -21,14 +26,26 @@ class ActiveProfile implements IProfile
 	/** @var \SixtyEightPublishers\Application\Environment\IProfileStorage  */
 	private $profileStorage;
 
-	/** @var null|string */
+	/** @var NULL|string */
 	private $country;
 
-	/** @var null|string */
+	/** @var NULL|string */
 	private $language;
 
-	/** @var null|string */
+	/** @var NULL|string */
 	private $currency;
+
+	/** @var NULL|string */
+	private $defaultCountry;
+
+	/** @var NULL|string */
+	private $defaultLanguage;
+
+	/** @var NULL|string */
+	private $defaultCurrency;
+
+	/** @var NULL|callable[] */
+	public $onChangeLanguage;
 
 	/**
 	 * @param \SixtyEightPublishers\Application\Environment\IProfile            $profile
@@ -38,33 +55,63 @@ class ActiveProfile implements IProfile
 	{
 		$this->profile = $profile;
 		$this->profileStorage = $profileStorage;
-		$this->country = $profile->getCountries()[0] ?? NULL;
-		$this->language = $profile->getLanguages()[0] ?? NULL;
-		$this->currency = $profile->getCurrencies()[0] ?? NULL;
+		$this->defaultCountry = $profile->getCountries()[0] ?? NULL;
+		$this->defaultLanguage = $profile->getLanguages()[0] ?? NULL;
+		$this->defaultCurrency = $profile->getCurrencies()[0] ?? NULL;
 	}
 
 	/**
-	 * @return string
+	 * @param bool $useDefault
+	 *
+	 * @return NULL|string
 	 */
-	public function getCountry()
+	public function getCountry(bool $useDefault = TRUE) : ?string
 	{
-		return $this->country;
+		return $useDefault ? ($this->country ?? $this->defaultCountry) : $this->country;
 	}
 
 	/**
-	 * @return string
+	 * @param bool $useDefault
+	 *
+	 * @return NULL|string
 	 */
-	public function getLanguage()
+	public function getLanguage(bool $useDefault = TRUE) : ?string
 	{
-		return $this->language;
+		return $useDefault ? ($this->language ?? $this->defaultLanguage) : $this->language;
 	}
 
 	/**
-	 * @return string
+	 * @param bool $useDefault
+	 *
+	 * @return NULL|string
 	 */
-	public function getCurrency()
+	public function getCurrency(bool $useDefault = TRUE) : ?string
 	{
-		return $this->currency;
+		return $useDefault ? ($this->currency ?? $this->defaultCurrency) : $this->currency;
+	}
+
+	/**
+	 * @return NULL|string
+	 */
+	public function getDefaultCountry() : ?string
+	{
+		return $this->defaultCountry;
+	}
+
+	/**
+	 * @return NULL|string
+	 */
+	public function getDefaultLanguage() : ?string
+	{
+		return $this->defaultLanguage;
+	}
+
+	/**
+	 * @return NULL|string
+	 */
+	public function getDefaultCurrency() : ?string
+	{
+		return $this->defaultCurrency;
 	}
 
 	/**
@@ -97,6 +144,14 @@ class ActiveProfile implements IProfile
 	public function changeLanguage($language, $persist = TRUE)
 	{
 		if (!in_array($language, $this->getLanguages())) {
+			if (is_string($language)) {
+				foreach ($this->getLanguages() as $available) {
+					if (substr($available, 0, 2) === substr($language, 0, 2)) {
+						return $this->changeLanguage($available, $persist);
+					}
+				}
+			}
+
 			throw new ProfileConfigurationException("Language with code \"{$language}\" is not defined in active profile.");
 		}
 
@@ -105,6 +160,7 @@ class ActiveProfile implements IProfile
 		if ($persist) {
 			$this->profileStorage->persist();
 		}
+		$this->onChangeLanguage($language);
 
 		return $this;
 	}
