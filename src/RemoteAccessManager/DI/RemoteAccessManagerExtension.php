@@ -40,10 +40,10 @@ class RemoteAccessManagerExtension extends CompilerExtension
 		}
 
 		$builder->addDefinition($this->prefix('handler'))
-			->setClass(DefaultAccessHandler::class);
+			->setType(DefaultAccessHandler::class);
 
 		$builder->addDefinition($this->prefix('remoteAccess'))
-			->setClass(RemoteAccessManager::class, [
+			->setType(RemoteAccessManager::class, [
 				'whitelist' => $config['whitelist'],
 				'blacklist' => $config['blacklist'],
 				'key' => $config['secretKey'],
@@ -64,7 +64,7 @@ class RemoteAccessManagerExtension extends CompilerExtension
 
 		if (count($handlers) > 1) {
 			foreach ($handlers as $name => $definition) {
-				if ($definition->getClass() === DefaultAccessHandler::class) {
+				if ($definition->getType() === DefaultAccessHandler::class) {
 					$builder->removeDefinition($name);
 				}
 			}

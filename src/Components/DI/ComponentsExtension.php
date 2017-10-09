@@ -29,7 +29,7 @@ class ComponentsExtension extends CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		$builder->addDefinition($this->prefix('templateManager'))
-			->setClass(TemplateManager::class);
+			->setType(TemplateManager::class);
 	}
 
 	/**

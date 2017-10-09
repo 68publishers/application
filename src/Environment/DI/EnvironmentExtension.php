@@ -40,16 +40,16 @@ class EnvironmentExtension extends CompilerExtension
 		$config = $this->getConfig($this->defaults);
 
 		$builder->addDefinition($this->prefix('environment'))
-			->setClass(Environment::class);
+			->setType(Environment::class);
 
 		$builder->addDefinition($this->prefix('detector'))
-			->setClass(NetteRequestDetector::class);
+			->setType(NetteRequestDetector::class);
 
 		$builder->addDefinition($this->prefix('profileStorage'))
-			->setClass(SessionProfileStorage::class);
+			->setType(SessionProfileStorage::class);
 
 		$profileContainer = $builder->addDefinition($this->prefix('profileContainer'))
-			->setClass(ProfileContainer::class);
+			->setType(ProfileContainer::class);
 
 		if (empty($config['profile'])) {
 			throw new ConfigurationException("You must define some profile combination in your configuration.");
@@ -98,7 +98,7 @@ class EnvironmentExtension extends CompilerExtension
 
 		if ($this->useDebugger()) {
 			$builder->addDefinition($this->prefix('panel'))
-				->setClass(Panel::class)
+				->setType(Panel::class)
 				->setInject(FALSE)
 				->setAutowired(FALSE);
 		}
@@ -115,7 +115,7 @@ class EnvironmentExtension extends CompilerExtension
 
 		if (count($detectors) > 1) {
 			foreach ($detectors as $name => $definition) {
-				if ($definition->getClass() === NetteRequestDetector::class) {
+				if ($definition->getType() === NetteRequestDetector::class) {
 					$builder->removeDefinition($name);
 				}
 			}
@@ -123,7 +123,7 @@ class EnvironmentExtension extends CompilerExtension
 
 		if (count($storage) > 1) {
 			foreach ($storage as $name => $definition) {
-				if ($definition->getClass() === SessionProfileStorage::class) {
+				if ($definition->getType() === SessionProfileStorage::class) {
 					$builder->removeDefinition($name);
 				}
 			}
