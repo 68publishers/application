@@ -55,6 +55,16 @@ environment:
 
 ![](https://68publishers.github.io/repo/environment/tracy-panel.png)
 
+### Integration with Kdyby\Translation
+
+This feature provides automatic evaluation of the locale parameter for `Kdyby\Translation` based on profile settings in the extension. 
+Also if you change language via method `\SixtyEightPublishers\Application\Environment\ActiveProfile::changeLanguage()`, locale in Translator is changed too.
+
+```yml
+environment:
+	translations: yes
+```
+
 ## Rules for contributing
 
 - **1 PR per feature**
