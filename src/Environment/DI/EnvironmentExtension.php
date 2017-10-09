@@ -6,6 +6,7 @@ namespace SixtyEightPublishers\Application\Environment\DI;
 
 use Nette\DI\CompilerExtension;
 use Nette\PhpGenerator\ClassType;
+use Nette\Utils\AssertionException;
 use SixtyEightPublishers\Application\Environment\ConfigurationException;
 use SixtyEightPublishers\Application\Environment\Environment;
 use SixtyEightPublishers\Application\Environment\ProfileContainer;
@@ -14,6 +15,8 @@ use SixtyEightPublishers\Application\Environment\Detector\NetteRequestDetector;
 use SixtyEightPublishers\Application\Environment\Diagnostics\Panel;
 use SixtyEightPublishers\Application\Environment\IProfileStorage;
 use SixtyEightPublishers\Application\Environment\Storage\SessionProfileStorage;
+use SixtyEightPublishers\Application\Environment\Translation\ChangeTranslatorLocaleHandler;
+use SixtyEightPublishers\Application\Environment\Translation\ProfileStorageResolver;
 
 class EnvironmentExtension extends CompilerExtension
 {
@@ -23,6 +26,7 @@ class EnvironmentExtension extends CompilerExtension
 	private $defaults = [
 		'debugger' => FALSE,
 		'localeDomain' => FALSE,
+		'translations' => FALSE,
 		'mode' => 'tolerant',
 		'profile' => [],
 	];
@@ -65,6 +69,31 @@ class EnvironmentExtension extends CompilerExtension
 				array_key_exists('domain', $profile) ? (array) $profile['domain'] : [],
 				!(array_key_exists('disable', $profile) && $profile['disable'] === TRUE),
 			]);
+		}
+
+		if ($config['translations']) {
+			$extensions = $this->compiler->getExtensions($extensionClass = '\Kdyby\Translation\DI\TranslationExtension');
+			if (empty($extensions)) {
+				throw new AssertionException('You should register \'' . $extensionClass . '\' before \'' . get_class($this) . '\'.', E_USER_NOTICE);
+			}
+			/** @var \Nette\DI\CompilerExtension $extension */
+			$extension = $extensions[array_keys($extensions)[0]];
+
+			$builder->addDefinition($this->prefix('translationResolver'))
+				->setType(ProfileStorageResolver::class);
+
+			$chain = $builder->getDefinition($extension->name . '.userLocaleResolver');
+			$chain->addSetup('addResolver', [
+				$this->prefix('@translationResolver')
+			]);
+
+			$builder->addDefinition($this->prefix('changeTranslatorLocaleHandler'))
+				->setType(ChangeTranslatorLocaleHandler::class)
+				->setTags([
+					'run' => TRUE
+				]);
+
+			# @todo: Add resolver to Tracy Bar
 		}
 
 		if ($this->useDebugger()) {
