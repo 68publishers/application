@@ -86,7 +86,7 @@ class EnvironmentExtension extends CompilerExtension
 
 		if (count($detectors) > 1) {
 			foreach ($detectors as $name => $definition) {
-				if ($definition->getClass() === NetteRequestDetector::class) {
+				if ($definition->getType() === NetteRequestDetector::class) {
 					$builder->removeDefinition($name);
 				}
 			}
@@ -94,7 +94,7 @@ class EnvironmentExtension extends CompilerExtension
 
 		if (count($storage) > 1) {
 			foreach ($storage as $name => $definition) {
-				if ($definition->getClass() === SessionProfileStorage::class) {
+				if ($definition->getType() === SessionProfileStorage::class) {
 					$builder->removeDefinition($name);
 				}
 			}
