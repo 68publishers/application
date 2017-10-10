@@ -25,5 +25,8 @@
 	"autoload-dev": {
 		"classmap": ["tests/"],
 		"files": []
+	},
+	"suggest": {
+		"kdyby/translation": "If you wanna use automatic locale resolving for translations."
 	}
 }

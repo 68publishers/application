@@ -35,7 +35,8 @@ class Panel implements IBarPanel
 	{
 		return (string) Html::el('span title="Environment"')
 			->addHtml($this->getIcon())
-			->addHtml(Html::el('span class=tracy-label')->setText($this->environment->getProfile()->getName())
+			->addHtml(
+				Html::el('span class=tracy-label')->setText($this->environment->getProfile()->getName())
 		);
 	}
 
@@ -48,7 +49,8 @@ class Panel implements IBarPanel
 		$panel[] = Html::el('h2')->setText('Configured profiles:');
 
 		$table = Html::el('table');
-		$table->addHtml(Html::el('thead')->addHtml(Html::el('tr')
+		$table->addHtml(Html::el('thead')->addHtml(
+			Html::el('tr')
 			->addHtml(Html::el('th'))
 			->addHtml(Html::el('th')->setText('name'))
 			->addHtml(Html::el('th')->setText('country'))
@@ -60,7 +62,8 @@ class Panel implements IBarPanel
 
 		/** @var Profile $profile */
 		foreach ($this->profiles as $profile) {
-			$tbody->addHtml($tr = Html::el('tr')
+			$tbody->addHtml(
+				$tr = Html::el('tr')
 				->addHtml($firstCell = Html::el('td'))
 				->addHtml(Html::el('td')->setText($profile->getName()))
 				->addHtml(Html::el('td')->setHtml(implode('<br>', $profile->getCountries())))
