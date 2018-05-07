@@ -58,11 +58,15 @@ environment:
 ### Integration with Kdyby\Translation
 
 This feature provides automatic evaluation of the locale parameter for `Kdyby\Translation` based on profile settings in the extension. 
+Default profile's language can be used if setting `translations.useDefault` is set to `TRUE`.
+If is this setting set to `FALSE` default language will not be used and other resolvers will be invoked.
 Also if you change language via method `\SixtyEightPublishers\Application\Environment\ActiveProfile::changeLanguage()`, locale in Translator is changed too.
 
 ```yml
 environment:
-	translations: yes
+	translations:
+	    enable: yes
+	    useDefault: no
 ```
 
 ## Rules for contributing

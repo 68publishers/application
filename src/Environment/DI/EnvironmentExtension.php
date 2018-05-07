@@ -26,7 +26,10 @@ class EnvironmentExtension extends CompilerExtension
 	private $defaults = [
 		'debugger' => FALSE,
 		'localeDomain' => FALSE,
-		'translations' => FALSE,
+		'translations' => [
+			'enable' => FALSE,
+			'useDefault' => FALSE,
+		],
 		'mode' => 'tolerant',
 		'profile' => [],
 	];
@@ -71,7 +74,7 @@ class EnvironmentExtension extends CompilerExtension
 			]);
 		}
 
-		if ($config['translations']) {
+		if ($config['translations']['enable']) {
 			$extensions = $this->compiler->getExtensions($extensionClass = '\Kdyby\Translation\DI\TranslationExtension');
 			if (empty($extensions)) {
 				throw new AssertionException('You should register \'' . $extensionClass . '\' before \'' . get_class($this) . '\'.', E_USER_NOTICE);
@@ -80,7 +83,10 @@ class EnvironmentExtension extends CompilerExtension
 			$extension = $extensions[array_keys($extensions)[0]];
 
 			$builder->addDefinition($this->prefix('translationResolver'))
-				->setType(ProfileStorageResolver::class);
+				->setType(ProfileStorageResolver::class)
+				->setArguments([
+					'useDefault' => (bool) $config['translations']['useDefault'],
+				]);
 
 			$chain = $builder->getDefinition($extension->name . '.userLocaleResolver');
 			$chain->addSetup('addResolver', [
