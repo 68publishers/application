@@ -20,28 +20,28 @@ and now you can enable the Environment extension using your neon config
 
 ```yml
 extensions:
-	environment: SixtyEightPublishers\Application\DI\EnvironmentExtension
+    environment: SixtyEightPublishers\Application\DI\EnvironmentExtension
 ```
 
 ## Usage
 
 ```php
 environment:
-	profile:
-		europe:
-			language: [sk_SK, en_GB, de_DE, pl_PL]
-			currency: [EUR, PLZ, GBP]
-			country: [SK, GB, DE, PL]
-		north_america:
-			language: en_US
-			currency: USD
-			country: US
-			domain: [www.example.com, example.com]
-			# disable: yes
-		default: # If the default profile doesn't exists, the first profile is taken as default
-			language: cs_CZ
-			currency: CZK
-			country: CZ
+    profile:
+        europe:
+            language: [sk_SK, en_GB, de_DE, pl_PL]
+            currency: [EUR, PLZ, GBP]
+            country: [SK, GB, DE, PL]
+        north_america:
+            language: en_US
+            currency: USD
+            country: US
+            domain: [www.example.com, example.com]
+            # disable: yes
+        default: # If the default profile doesn't exists, the first profile is taken as default
+            language: cs_CZ
+            currency: CZK
+            country: CZ
 ```
 
 ### Bar panel
@@ -50,7 +50,7 @@ Enables and disables Tracy debugger bar panel for better debugging
 
 ```yml
 environment:
-	debugger: yes
+    debugger: yes
 ```
 
 ![](https://68publishers.github.io/repo/environment/tracy-panel.png)
@@ -64,9 +64,9 @@ Also if you change language via method `\SixtyEightPublishers\Application\Enviro
 
 ```yml
 environment:
-	translations:
-	    enable: yes
-	    useDefault: no
+    translations:
+        enable: yes
+        useDefault: no
 ```
 
 ## Rules for contributing
